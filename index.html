@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Treino de Inglês</title>
-
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -20,8 +19,8 @@
       width: 100%;
       max-width: 400px;
       text-align: center;
-      padding: 0 15px; /* espaço lateral nas telas pequenas */
-      box-sizing: border-box; /* garante que o padding não aumente a largura total */
+      padding: 0 15px; /* espaço lateral para celular */
+      box-sizing: border-box;
     }
 
     #palavra-box {
@@ -37,14 +36,14 @@
 
     #opcoes-container {
       display: flex;
-      flex-wrap: wrap; /* Permite quebrar linha quando necessário */
-      gap: 10px; /* Espaço entre os botões */
-      justify-content: space-between; /* Distribui espaço igual entre os botões */
-      margin-bottom: 20px; /* Espaço entre alternativas e o contador */
+      flex-wrap: wrap; /* permite quebrar linha */
+      gap: 10px; /* espaço entre os botões */
+      justify-content: space-between; /* distribui os botões igualmente */
+      margin-bottom: 20px; /* espaço entre botões e contador */
     }
 
     .opcao-btn {
-      width: calc(50% - 5px); /* Cada botão ocupa metade da linha menos o gap */
+      width: calc(50% - 5px); /* metade da linha menos o gap */
       padding: 14px;
       font-size: 18px;
       border-radius: 10px;
@@ -72,17 +71,19 @@
     #contador-container {
       display: flex;
       justify-content: space-between;
-      margin-top: 20px; /* Mais espaço acima do contador */
+      gap: 10px; /* espaço entre acertos e erros */
+      margin-top: 20px; /* mais espaço acima do contador */
     }
 
     #acertos-box, #erros-box {
       flex: 1;
-      margin: 0 5px;
       padding: 12px;
       font-size: 20px;
       font-weight: bold;
       color: white;
       border-radius: 12px;
+      margin: 0; /* remove margem lateral para alinhamento com botões */
+      box-sizing: border-box;
     }
 
     #acertos-box { background-color: #4CAF50; }
@@ -90,20 +91,14 @@
   </style>
 </head>
 <body>
-
   <div id="container">
-
     <div id="palavra-box">Carregando...</div>
-
     <div id="opcoes-container"></div>
-
     <div id="contador-container">
       <div id="acertos-box">0</div>
       <div id="erros-box">0</div>
     </div>
-
   </div>
-
   <script src="script.js"></script>
 </body>
 </html>
