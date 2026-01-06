@@ -33,15 +33,6 @@
       margin-bottom: 20px;
     }
 
-    #progresso-box {
-      background-color: #333;
-      color: #fff;
-      font-size: 1.2rem;
-      padding: 12px;
-      border-radius: 10px;
-      margin-bottom: 15px;
-    }
-
     .opcao-btn {
       width: 100%;
       padding: 14px;
@@ -50,18 +41,28 @@
       border-radius: 10px;
       border: none;
       cursor: pointer;
+      background-color: #FFD700; /* amarelo */
+      color: #333;
+      transition: background-color 0.3s;
+    }
+
+    .opcao-btn:disabled {
+      cursor: default;
+    }
+
+    .opcao-btn.correta {
       background-color: #4CAF50;
       color: white;
     }
 
-    .opcao-btn:hover {
-      background-color: #45a049;
+    .opcao-btn.errada {
+      background-color: #f44336;
+      color: white;
     }
 
     #mensagem {
-      margin-top: 10px;
       min-height: 20px;
-      font-size: 16px;
+      margin-top: 10px;
     }
 
     #contador-container {
@@ -89,7 +90,6 @@
   <div id="container">
 
     <div id="palavra-box">Carregando...</div>
-    <div id="progresso-box">Acertos: 0 / 0</div>
 
     <div id="opcoes-container"></div>
 
