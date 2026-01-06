@@ -7,16 +7,6 @@ const acertosBox = document.getElementById("acertos-box");
 const errosBox = document.getElementById("erros-box");
 
 // ===============================
-// RECORDE
-// ===============================
-let recorde = 0;
-
-fetch("recorde.txt")
-  .then(res => res.text())
-  .then(texto => recorde = parseInt(texto) || 0)
-  .catch(() => recorde = 0);
-
-// ===============================
 // VOCABULÁRIO
 // ===============================
 let vocabulario = {};
@@ -74,7 +64,7 @@ function atualizarContadores() {
 
 function mostrarPalavra() {
   if (i >= palavras.length) {
-    palavraBox.textContent = "✅ Teste finalizado!";
+    palavraBox.textContent = "Teste finalizado!";
     opcoesContainer.innerHTML = "";
     return;
   }
@@ -104,7 +94,7 @@ function criarOpcoes(palavraAtual) {
 
   let opcoes = [correta];
 
-  // agora são 4 opções
+  // 4 opções
   while (opcoes.length < 4) {
     const palavraAleatoria =
       palavras[Math.floor(Math.random() * palavras.length)];
