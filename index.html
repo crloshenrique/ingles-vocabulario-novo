@@ -31,58 +31,70 @@
       border-radius: 15px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.2);
       margin-bottom: 20px;
-      min-height: 80px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    }
+
+    #progresso-box {
+      background-color: #333;
+      color: #fff;
+      font-size: 1.2rem;
+      padding: 12px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .opcao-btn {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 10px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .opcao-btn:hover {
+      background-color: #45a049;
     }
 
     #mensagem {
-      font-size: 16px;
+      margin-top: 10px;
       min-height: 20px;
-      margin-bottom: 2px;
-      color: #333;
+      font-size: 16px;
     }
 
-    /* Contadores de acertos/erros */
     #contador-container {
       display: flex;
       justify-content: space-between;
-      margin-top: 2px;
+      margin-top: 10px;
     }
 
     #acertos-box, #erros-box {
       flex: 1;
-      text-align: center;
+      margin: 0 5px;
+      padding: 12px;
       font-size: 20px;
       font-weight: bold;
-      padding: 12px 0;
-      border-radius: 12px;
       color: white;
-      margin: 0 5px;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+      border-radius: 12px;
     }
 
-    #acertos-box {
-      background-color: #4CAF50;
-    }
-
-    #erros-box {
-      background-color: #f44336;
-    }
+    #acertos-box { background-color: #4CAF50; }
+    #erros-box { background-color: #f44336; }
   </style>
 </head>
 <body>
 
   <div id="container">
 
-    <!-- Retângulo da palavra -->
     <div id="palavra-box">Carregando...</div>
+    <div id="progresso-box">Acertos: 0 / 0</div>
 
-    <!-- Mensagem -->
+    <div id="opcoes-container"></div>
+
     <div id="mensagem"></div>
 
-    <!-- Contadores de acertos/erros (MANTIDOS) -->
     <div id="contador-container">
       <div id="acertos-box">0</div>
       <div id="erros-box">0</div>
@@ -91,6 +103,5 @@
   </div>
 
   <script src="script.js"></script>
-
 </body>
 </html>
