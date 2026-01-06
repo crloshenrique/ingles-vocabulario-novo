@@ -138,7 +138,7 @@ function criarOpcoes(palavraAtual) {
       atualizarContadores();
       i++;
 
-      setTimeout(mostrarPalavra, 900);
+      setTimeout(mostrarPalavra, 1400);
     };
 
     opcoesContainer.appendChild(btn);
