@@ -1,90 +1,85 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <link rel="icon" type="image/png" href="icone.png">
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Treino de Inglês</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f0f0f0;
+      background: #f0f0f0;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
       margin: 0;
+      padding: 15px;
+      box-sizing: border-box;
     }
 
     #container {
       width: 100%;
       max-width: 400px;
       text-align: center;
-      padding: 0 15px; /* espaço lateral para celular */
-      box-sizing: border-box;
+      position: relative;
     }
 
-    #palavra-box {
-      background-color: #666666;
-      color: white;
-      font-size: 2rem;
-      font-weight: bold;
-      padding: 0 20px;
-      border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      margin-bottom: 20px;
-      height: 125px;       
+    .menu {
       display: flex;
-      align-items: center;      
-      justify-content: center; 
-      text-align: center;
-      line-height: 1.2;
-      overflow-wrap: break-word;
-      word-break: break-word;
-      overflow-y: hidden;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
     }
 
-
-
-    #opcoes-container {
-      display: flex;
-      flex-wrap: wrap; /* permite quebrar linha */
-      gap: 10px; /* espaço entre os botões */
-      justify-content: space-between; /* distribui os botões igualmente */
-      margin-bottom: 20px; /* espaço entre botões e contador */
-    }
-
-    .opcao-btn {
-      width: calc(50% - 5px); /* metade da linha menos o gap */
+    /* Garante que os botões sejam clicáveis */
+    button {
       padding: 14px;
       font-size: 18px;
       border-radius: 10px;
       border: none;
       cursor: pointer;
-      background-color: #d9d9d9;
+      background: #666;
+      color: white;
+      transition: background 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button:active { background: #444; }
+
+    #palavra-box {
+      background: #666;
+      color: white;
+      font-size: 1.8rem;
+      font-weight: bold;
+      height: 125px;
+      border-radius: 15px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      padding: 10px;
+    }
+
+    #opcoes-container {
+      display: none;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .opcao-btn {
+      width: calc(50% - 5px);
+      background: #d9d9d9;
       color: #333;
-      transition: background-color 0.3s;
     }
 
-    .opcao-btn:disabled {
-      cursor: default;
-    }
-
-    .opcao-btn.correta {
-      background-color: #4CAF50;
-      color: white;
-    }
-
-    .opcao-btn.errada {
-      background-color: #f44336;
-      color: white;
-    }
+    .correta { background: #4CAF50 !important; color: white; }
+    .errada { background: #f44336 !important; color: white; }
 
     #contador-container {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px; /* espaço entre acertos e erros */
-      margin-top: 20px; /* mais espaço acima do contador */
+      display: none;
+      gap: 10px;
+      margin-bottom: 20px;
     }
 
     #acertos-box, #erros-box {
@@ -94,23 +89,62 @@
       font-weight: bold;
       color: white;
       border-radius: 12px;
-      margin: 0; /* remove margem lateral para alinhamento com botões */
-      box-sizing: border-box;
     }
 
-    #acertos-box { background-color: #4CAF50; }
-    #erros-box { background-color: #f44336; }
+    #acertos-box { background: #4CAF50; }
+    #erros-box { background: #f44336; }
+
+    #btn-reiniciar {
+      display: none;
+      width: 100%;
+      background: #333;
+      margin-top: 15px;
+    }
+
+    #resultados-lista {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
+
   <div id="container">
-    <div id="palavra-box">Carregando...</div>
+    <div id="menu-principal" class="menu">
+      <h2>Treino de Inglês</h2>
+      <p id="status-load">Carregando vocabulário...</p>
+      <button id="btn-niveis" onclick="abrirMenuNiveis()" style="display:none">Jogar por níveis</button>
+      <button id="btn-intervalos" onclick="abrirMenuIntervalos()" style="display:none">Escolher palavras</button>
+    </div>
+
+    <div id="menu-niveis" class="menu" style="display:none">
+      <button onclick="iniciarNivel(25)">Iniciante (25)</button>
+      <button onclick="iniciarNivel(50)">Intermediário (50)</button>
+      <button onclick="iniciarNivel(100)">Avançado (100)</button>
+      <button onclick="iniciarNivel(9999)">Todas</button>
+    </div>
+
+    <div id="menu-intervalos" class="menu" style="display:none">
+      <button onclick="iniciarIntervalo(0,25)">0 à 25</button>
+      <button onclick="iniciarIntervalo(25,50)">25 à 50</button>
+      <button onclick="iniciarIntervalo(50,75)">50 à 75</button>
+      <button onclick="iniciarIntervalo(75,100)">75 à 100</button>
+    </div>
+
+    <div id="palavra-box"></div>
     <div id="opcoes-container"></div>
+
     <div id="contador-container">
       <div id="acertos-box">0</div>
       <div id="erros-box">0</div>
     </div>
+
+    <div id="resultados-lista"></div>
+    <button id="btn-reiniciar" onclick="window.location.reload()">Jogar Novamente</button>
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>
