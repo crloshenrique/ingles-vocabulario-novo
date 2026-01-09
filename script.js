@@ -36,7 +36,7 @@ function gerarMenuTemas() {
   meusDicionarios.forEach(tema => {
     const btn = document.createElement("button");
     btn.textContent = tema;
-    btn.style.background = "#666";
+    btn.style.background = "#10a2dd";
     btn.onclick = () => carregarVocabulario(tema);
     listaTemasBotoes.appendChild(btn);
   });
