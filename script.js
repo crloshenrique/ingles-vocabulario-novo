@@ -14,10 +14,10 @@ const menuIntervalos = document.getElementById("menu-intervalos");
 const listaTemasBotoes = document.getElementById("lista-temas-botoes");
 
 // Teste de atualização solicitado:
-document.getElementById("menu-temas").insertAdjacentHTML('beforeend', '<p style="color:#999; font-size:0.9rem;">Version 0.56</p>');
+document.getElementById("menu-temas").insertAdjacentHTML('beforeend', '<p style="color:#999; font-size:0.9rem;">Version 0.58</p>');
 
 // ==========================================
-// CONFIGURAÇÃO DE DICIONÁRIOS (Atualizado para minúsculo)
+// CONFIGURAÇÃO DE DICIONÁRIOS
 // ==========================================
 const meusDicionarios = ["verbos"]; 
 
