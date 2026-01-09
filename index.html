@@ -11,13 +11,13 @@
         .menu { display: flex; flex-direction: column; gap: 12px; width: 100%; }
 
         /* BOTÕES */
-        button { padding: 14px; font-size: 18px; border-radius: 10px; border: none; cursor: pointer; background: #666; color: white; transition: opacity 0.2s; -webkit-tap-highlight-color: transparent; }
+        button { padding: 14px; font-size: 18px; border-radius: 10px; border: none; cursor: pointer; background: #5e5e5e; color: white; transition: opacity 0.2s; -webkit-tap-highlight-color: transparent; }
         button:active { opacity: 0.8; }
 
         /* BOX DA PALAVRA E OPÇÕES */
-        #palavra-box { background: #666; color: white; font-size: 1.8rem; font-weight: bold; height: 125px; border-radius: 15px; display: none; align-items: center; justify-content: center; margin-bottom: 20px; padding: 10px; }
+        #palavra-box { background: #5e5e5e; color: white; font-size: 1.8rem; font-weight: bold; height: 125px; border-radius: 15px; display: none; align-items: center; justify-content: center; margin-bottom: 20px; padding: 10px; }
         #opcoes-container { display: none; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
-        .opcao-btn { width: calc(50% - 5px); background: #d9d9d9; color: #666; }
+        .opcao-btn { width: calc(50% - 5px); background: #d9d9d9; color: #5e5e5e; }
 
         /* CORES DE RESPOSTA */
         .correta { background: #4CAF50 !important; color: white; }
@@ -28,7 +28,7 @@
         #acertos-box, #erros-box { flex: 1; padding: 12px; font-size: 20px; font-weight: bold; color: white; border-radius: 12px; }
         #acertos-box { background: #4CAF50; }
         #erros-box { background: #f44336; }
-        #btn-reiniciar { display: none; width: 100%; background: #666; margin-top: 15px; }
+        #btn-reiniciar { display: none; width: 100%; background: #5e5e5e; margin-top: 15px; }
         #resultados-lista { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
         h2 { color: #444; margin-bottom: 10px; }
     </style>
@@ -47,7 +47,7 @@
             <p id="status-load" style="display:none">Carregando...</p>
             <button id="btn-intervalos" onclick="abrirMenuIntervalos()">Escolher palavras</button>
             <button id="btn-niveis" onclick="abrirMenuNiveis()">Jogar por níveis</button>
-            <button onclick="window.location.reload()" style="background:#666;">Voltar</button>
+            <button onclick="window.location.reload()" style="background:#5e5e5e;">Voltar</button>
         </div>
 
         <div id="menu-niveis" class="menu" style="display:none">
@@ -55,7 +55,7 @@
             <button onclick="iniciarNivel(50)" style="background: #5abb6a;">Intermediário</button>
             <button onclick="iniciarNivel(75)" style="background: #f99c35;">Avançado</button>
             <button onclick="iniciarNivel(vocabulario.length)" style="background: #f14738;">Pro</button>
-            <button onclick="voltarAoPrincipal()" style="background:#666;">Voltar</button>
+            <button onclick="voltarAoPrincipal()" style="background:#5e5e5e;">Voltar</button>
         </div>
 
         <div id="menu-intervalos" class="menu" style="display:none">
@@ -63,7 +63,7 @@
             <button onclick="iniciarIntervalo(25,50)" style="background: #5abb6a;">26 ⮕ 50 palavras</button>
             <button onclick="iniciarIntervalo(50,75)" style="background: #f99c35;">51 ⮕ 75 palavras</button>
             <button onclick="iniciarIntervalo(75,100)" style="background: #f14738;">76 ⮕ 100 palavras</button>
-            <button onclick="voltarAoPrincipal()" style="background:#666;">Voltar</button>
+            <button onclick="voltarAoPrincipal()" style="background:#5e5e5e;">Voltar</button>
         </div>
 
         <div id="palavra-box"></div>
