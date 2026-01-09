@@ -1,3 +1,4 @@
+// Test line: Verified compatibility check - 2026-01-09
 const palavraBox = document.getElementById("palavra-box");
 const opcoesContainer = document.getElementById("opcoes-container");
 const acertosBox = document.getElementById("acertos-box");
@@ -13,12 +14,12 @@ const menuIntervalos = document.getElementById("menu-intervalos");
 const listaTemasBotoes = document.getElementById("lista-temas-botoes");
 
 // Teste de atualização solicitado:
-document.getElementById("menu-temas").insertAdjacentHTML('beforeend', '<p style="color:#999; font-size:0.9rem;">Version 3.00.52</p>');
+document.getElementById("menu-temas").insertAdjacentHTML('beforeend', '<p style="color:#999; font-size:0.9rem;">Version 3.00.53</p>');
 
 // ==========================================
-// CONFIGURAÇÃO DE DICIONÁRIOS
+// CONFIGURAÇÃO DE DICIONÁRIOS (Atualizado para minúsculo)
 // ==========================================
-const meusDicionarios = ["Verbos", "Lugares", "Cores"]; 
+const meusDicionarios = ["verbos", "lugares", "cores"]; 
 
 let vocabulario = []; 
 let palavrasParaOJogo = [];
@@ -27,15 +28,14 @@ let acertos = 0;
 let erros = 0;
 let historicoResultados = []; 
 
-// Iniciar criação do menu ao carregar a página
 window.onload = gerarMenuTemas;
 
 function gerarMenuTemas() {
     listaTemasBotoes.innerHTML = "";
     meusDicionarios.forEach(tema => {
         const btn = document.createElement("button");
-        btn.textContent = tema;
-        btn.style.background = "#10a2dd"; // Cor azul solicitada
+        btn.textContent = tema.charAt(0).toUpperCase() + tema.slice(1); // Exibe bonito, mas carrega minúsculo
+        btn.style.background = "#10a2dd"; 
         btn.onclick = () => carregarVocabulario(tema);
         listaTemasBotoes.appendChild(btn);
     });
@@ -46,17 +46,19 @@ function carregarVocabulario(arquivo) {
     statusLoad.style.display = "block";
     statusLoad.textContent = `Carregando ${arquivo}...`;
     
-    vocabulario = []; // Limpa carregamentos anteriores
+    vocabulario = []; 
 
-    fetch(`Dicionários/${arquivo}.txt`)
+    // Caminho corrigido para pasta sem acento e minúscula
+    fetch(`dicionarios/${arquivo}.txt`)
         .then(res => {
             if(!res.ok) throw new Error("Arquivo não encontrado");
             return res.text();
         })
         .then(texto => {
-            const linhas = texto.split("\n")
+            // RegEx corrigido para aceitar quebras de linha Windows e Unix
+            const linhas = texto.split(/\r?\n/)
                                 .map(l => l.trim())
-                                .filter(l => l.includes("="));
+                                .filter(l => l !== "" && l.includes("="));
             
             linhas.forEach(linha => {
                 const [esquerda, direita] = linha.split("=");
