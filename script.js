@@ -6,47 +6,82 @@ const contadorContainer = document.getElementById("contador-container");
 const resultadosLista = document.getElementById("resultados-lista");
 const btnReiniciar = document.getElementById("btn-reiniciar");
 
-// Teste de atualização:
-document.getElementById("menu-principal").insertAdjacentHTML('beforeend', '<p style="color:#999; font-size:0.9rem;">Version 3.00.46</p>');
-
+const menuTemas = document.getElementById("menu-temas");
 const menuPrincipal = document.getElementById("menu-principal");
 const menuNiveis = document.getElementById("menu-niveis");
 const menuIntervalos = document.getElementById("menu-intervalos");
+const listaTemasBotoes = document.getElementById("lista-temas-botoes");
+
+// Teste de atualização solicitado:
+document.getElementById("menu-principal").insertAdjacentHTML('beforeend', '<p style="color:#999; font-size:0.9rem;">Version 3.00.46</p>');
+
+// ==========================================
+// CONFIGURAÇÃO DE TEMAS (SÓ MEXA AQUI)
+// ==========================================
+// Adicione o nome do arquivo SEM o .txt e idêntico ao que está no GitHub
+const meusDicionarios = ["Verbos", "Lugares"]; 
 
 let vocabulario = []; 
 let palavrasParaOJogo = [];
 let palavraAtualObjeto = null;
-
 let acertos = 0;
 let erros = 0;
 let historicoResultados = []; 
 
-/* ===============================
-   CARREGAR VOCABULÁRIO
-================================ */
-fetch("Dicionários/vocabulario.txt")
-  .then(res => res.text())
-  .then(texto => {
-    const linhas = texto.split("\n")
-                        .map(l => l.trim())
-                        .filter(l => l.includes("="));
-    
-    linhas.forEach(linha => {
-      const [esquerda, direita] = linha.split("=");
-      const exibir = esquerda.trim();
-      const traducoes = direita.split("/").map(t => t.trim());
+// Iniciar criação do menu automático ao carregar a página
+window.onload = gerarMenuTemas;
 
-      vocabulario.push({
-        exibir: exibir,
-        correta: traducoes[0],
-        todas: traducoes
-      });
-    });
-
-    document.getElementById("status-load").style.display = "none";
-    document.getElementById("btn-niveis").style.display = "block";
-    document.getElementById("btn-intervalos").style.display = "block";
+function gerarMenuTemas() {
+  listaTemasBotoes.innerHTML = "";
+  meusDicionarios.forEach(tema => {
+    const btn = document.createElement("button");
+    btn.textContent = tema;
+    btn.style.background = "#666";
+    btn.onclick = () => carregarVocabulario(tema);
+    listaTemasBotoes.appendChild(btn);
   });
+}
+
+function carregarVocabulario(arquivo) {
+  const statusLoad = document.getElementById("status-load");
+  statusLoad.style.display = "block";
+  statusLoad.textContent = `Carregando ${arquivo}...`;
+  
+  // Limpa vocabulário anterior caso exista
+  vocabulario = [];
+
+  fetch(`Dicionários/${arquivo}.txt`)
+    .then(res => {
+        if(!res.ok) throw new Error("Arquivo não encontrado");
+        return res.text();
+    })
+    .then(texto => {
+      const linhas = texto.split("\n")
+                          .map(l => l.trim())
+                          .filter(l => l.includes("="));
+      
+      linhas.forEach(linha => {
+        const [esquerda, direita] = linha.split("=");
+        const exibir = esquerda.trim();
+        const traducoes = direita.split("/").map(t => t.trim());
+
+        vocabulario.push({
+          exibir: exibir,
+          correta: traducoes[0],
+          todas: traducoes
+        });
+      });
+
+      // Transição de Menus (Git 25)
+      menuTemas.style.display = "none";
+      menuPrincipal.style.display = "flex";
+      statusLoad.style.display = "none";
+    })
+    .catch(err => {
+        statusLoad.textContent = "Erro ao carregar tema!";
+        console.error(err);
+    });
+}
 
 function abrirMenuNiveis() {
   menuPrincipal.style.display = "none";
@@ -56,6 +91,12 @@ function abrirMenuNiveis() {
 function abrirMenuIntervalos() {
   menuPrincipal.style.display = "none";
   menuIntervalos.style.display = "flex";
+}
+
+function voltarAoPrincipal() {
+    menuNiveis.style.display = "none";
+    menuIntervalos.style.display = "none";
+    menuPrincipal.style.display = "flex";
 }
 
 function iniciarNivel(quantidade) {
@@ -128,12 +169,12 @@ function criarOpcoes(objetoAtual) {
       if (opcao === correta) {
         btn.classList.add("correta");
         acertos++;
-        acertosBox.textContent = acertos; // Atualiza placar na hora
+        acertosBox.textContent = acertos;
         itemHistorico.cor = "#4CAF50";
       } else {
         btn.classList.add("errada");
         erros++;
-        errosBox.textContent = erros; // Atualiza placar na hora
+        errosBox.textContent = erros;
         itemHistorico.cor = "#f44336";
         todos.forEach(b => { if (b.textContent === correta) b.classList.add("correta"); });
       }
